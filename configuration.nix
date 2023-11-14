@@ -7,6 +7,7 @@
 {
 services.sshd.enable = true;
 system.stateVersion = "23.05";
+virtualisation.docker.enable = true;
 users.users.kog = {
   isNormalUser = true;
   openssh.authorizedKeys.keys = [
@@ -14,12 +15,14 @@ users.users.kog = {
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCpbCzlfMjlenM4qgaT4WWrVhtabWCBLN7X+JaXgInu40aiDEtKVyy6cTyyZmPv1BvHi1Xyg9coJxvlTv66EJZkzrf+UUvHTZhgcog6ZqAqOblxbk7wg2w+im/2TypVj5dvU8YRFz7dLcjA8tP0kyzXaPWEsA1KbVPV1jM+7ut41NldG7es+qxN0F9gvwmnHqS3ej2ajfGlXboGvWA4mcEF03YB9ZZKn7L2QTNRoajx1b83s+UYbRSSTi2xbSXNVmBGAKmO+TH0T+/1s4dR0inUzPX2UzpCXbwMCFwy0eNeO/MVQLoPdyVVc8YjTB8+nImnFRiaP6nTR0F3e+mQ3Xq1XBKyUpHe6tbxPL4coQOkciEcK8lq89pzbzc14ZVbIpnC35XZ2K3Bxk5U/8SjXpaxJ1SPBWOR7gn9XpeLZxOqwefR+K0OsQfTst8D7WRP8MxLYlBVzXnkKlewAYuwf6neQk0+ZqEmD4EdXwjY9Az+sDR676xgWQrfFcvRVRGIUWs= kog@Alexs-MacBook-Pro.local"
   ];
   initialHashedPassword = "$y$j9T$7LKXOXtgdTDofX7./bMbm/$q/MV5ZzLrQEAVXJn08rnyqQ1UhMU8fnDu2dYzPFvnZ2";
-  extraGroups = [ "wheel" ];
+  extraGroups = [ 
+    "wheel" 
+    "docker"
+    ];
   packages = with pkgs; [
     zsh
     tree
-    lf
-    docker
+    lf    
     wget
     curl
     vim
