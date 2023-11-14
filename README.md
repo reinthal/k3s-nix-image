@@ -1,3 +1,7 @@
+# Why this repo?
+
+Because you want a nix proxmox image that can be easily reproduced.
+
 # How to build the image
 
 ```bash
