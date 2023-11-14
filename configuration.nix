@@ -5,96 +5,24 @@
 { config, pkgs, ... }:
 
 {
-imports =
-  [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+boot.loader.systemd-boot.enable = true;
+boot.loader.efi.canTouchEfiVariables = true;
+services.xserver.enable = true;
+services.xserver.displayManager.gdm.enable = true;
+services.xserver.desktopManager.gnome.enable = true;
+users.users.kog = {
+  isNormalUser = true;
+  openssh.authorizedKeys.keys = [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDakbytHYHeMYF4d37T3uOa5ILBFZ+LV25ViUMKiI5slozK56aRsZJrEPbQuLCt48uNkmY4yR1QztY3JCCysPRp4Co8Pi7YuYmd6DmU1k2f27JVno/K8DaGH7miPBLjcmoQguZFV460yirs7Rd4swQa9OMfBCtQ2w/rBga71yG9h6qNvF5csbBx8En8LIADvTsu+F61qQfQxhR37iUwozKmsbfMTiDu+p+n3T38RG8vuqBz3PSEXLQxLVel4ZdFcUvFz+yJc5qyRumTZO68QuWEI/D+FGSld8OHzlvUdELhhoK/986VmMhxR69Mv+ILa/7r0B3EkYO+xQqtHouf9s7GUyg2eSIjisbpVzZIEHcMx95bilJQkkIFHuFPX9gx595XZy0G3e7Wtc+HqDk/tJOFNXWKcO/BAgSCcqF6tZBsA7aJLH46pBhqxfxfykS9iMm3kTeFRZNmKEMQ9JRJnaaeyTxeEpX2sYwU4bqTaJojOJcHSKGGlfHefpkfzBnQNFk= kog@battlestation"
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCpbCzlfMjlenM4qgaT4WWrVhtabWCBLN7X+JaXgInu40aiDEtKVyy6cTyyZmPv1BvHi1Xyg9coJxvlTv66EJZkzrf+UUvHTZhgcog6ZqAqOblxbk7wg2w+im/2TypVj5dvU8YRFz7dLcjA8tP0kyzXaPWEsA1KbVPV1jM+7ut41NldG7es+qxN0F9gvwmnHqS3ej2ajfGlXboGvWA4mcEF03YB9ZZKn7L2QTNRoajx1b83s+UYbRSSTi2xbSXNVmBGAKmO+TH0T+/1s4dR0inUzPX2UzpCXbwMCFwy0eNeO/MVQLoPdyVVc8YjTB8+nImnFRiaP6nTR0F3e+mQ3Xq1XBKyUpHe6tbxPL4coQOkciEcK8lq89pzbzc14ZVbIpnC35XZ2K3Bxk5U/8SjXpaxJ1SPBWOR7gn9XpeLZxOqwefR+K0OsQfTst8D7WRP8MxLYlBVzXnkKlewAYuwf6neQk0+ZqEmD4EdXwjY9Az+sDR676xgWQrfFcvRVRGIUWs= kog@Alexs-MacBook-Pro.local"
   ];
-$bootLoaderConfig
-# networking.hostName = "nixos"; # Define your hostname.
-# Pick only one of the below networking options.
-# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-# networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-# Set your time zone.
-# time.timeZone = "Europe/Amsterdam";
-
-# Configure network proxy if necessary
-# networking.proxy.default = "http://user:password\@proxy:port/";
-# networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-# Select internationalisation properties.
-# i18n.defaultLocale = "en_US.UTF-8";
-# console = {
-#   font = "Lat2-Terminus16";
-#   keyMap = "us";
-#   useXkbConfig = true; # use xkbOptions in tty.
-# };
-
-$xserverConfig
-
-$desktopConfiguration
-# Configure keymap in X11
-# services.xserver.layout = "us";
-# services.xserver.xkbOptions = {
-#   "eurosign:e";
-#   "caps:escape" # map caps to escape.
-# };
-
-# Enable CUPS to print documents.
-# services.printing.enable = true;
-
-# Enable sound.
-# sound.enable = true;
-# hardware.pulseaudio.enable = true;
-
-# Enable touchpad support (enabled default in most desktopManager).
-# services.xserver.libinput.enable = true;
-
-# Define a user account. Don't forget to set a password with ‘passwd’.
-# users.users.alice = {
-#   isNormalUser = true;
-#   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-#   packages = with pkgs; [
-#     firefox
-#     tree
-#   ];
-# };
-
-# List packages installed in system profile. To search, run:
-# \$ nix search wget
-# environment.systemPackages = with pkgs; [
-#   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-#   wget
-# ];
-
-# Some programs need SUID wrappers, can be configured further or are
-# started in user sessions.
-# programs.mtr.enable = true;
-# programs.gnupg.agent = {
-#   enable = true;
-#   enableSSHSupport = true;
-# };
-# List services that you want to enable:
-
-# Enable the OpenSSH daemon.
-# services.openssh.enable = true;
-
-# Open ports in the firewall.
-# networking.firewall.allowedTCPPorts = [ ... ];
-# networking.firewall.allowedUDPPorts = [ ... ];
-# Or disable the firewall altogether.
-# networking.firewall.enable = false;
-
-# Copy the NixOS configuration file and link it from the resulting system
-# (/run/current-system/configuration.nix). This is useful in case you
-# accidentally delete configuration.nix.
-# system.copySystemConfiguration = true;
-
-# This value determines the NixOS release from which the default
-# settings for stateful data, like file locations and database versions
-# on your system were taken. It’s perfectly fine and recommended to leave
-# this value at the release version of the first install of this system.
-# Before changing this value read the documentation for this option
-# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-system.stateVersion = "${config.system.nixos.release}"; # Did you read the comment?
+  initialHashedPassword = "$y$j9T$KkcANPbpF9MqqJjOVzVnV1$wNMTdAjtNI8fxYGRvAL/8Tz./1NPVooOqOsLblG.Zg2"
+  extraGroups = [ "wheel" ];
+  packages = with pkgs; [
+    zsh
+    tree
+    lf
+  ];
+};
+system.stateVersion = "22.11";
 }
