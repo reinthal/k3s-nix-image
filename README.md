@@ -1,6 +1,6 @@
 # Why this repo?
 
-Because you want a nix proxmox image that can be easily reproduced.
+Nix reproducible cloud images that run k3s kubernetes.
 
 # How to build the image
 
