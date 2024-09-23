@@ -6,9 +6,9 @@
   pkgs,
   ...
 }: {
-   imports = [
+  imports = [
     ../common
-   ];
+  ];
 
   system.stateVersion = "24.05";
 
@@ -25,7 +25,7 @@
     k3s = {
       enable = true;
       role = "server";
-      token = builtins.readFile ../secrets/token;
+      token = builtins.readFile ../secrets/token.txt;
       extraFlags = toString [
         # "--debug" # Optionally add additional args to k3s
       ];
