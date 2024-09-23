@@ -1,4 +1,8 @@
 {
+  modulesPath,
+  options,
+  specialArgs,
+  lib,
   config,
   pkgs,
 }: {

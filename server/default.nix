@@ -6,9 +6,10 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./common
-  ];
+   imports = [
+    ../common
+   ];
+
   system.stateVersion = "24.05";
 
   networking.firewall.allowedTCPPorts = [

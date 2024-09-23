@@ -13,9 +13,10 @@
     ...
   }: {
     packages.x86_64-linux = {
-      k3s_server = nixos-generators.nixosGenerate {
+      proxmox = nixos-generators.nixosGenerate {
         system = "x86_64-linux";
         modules = [
+          ({ ... }: { nix.registry.nixpkgs.flake = nixpkgs; })
           ./server
         ];
         format = "proxmox";
