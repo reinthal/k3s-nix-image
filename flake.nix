@@ -1,8 +1,8 @@
 {
   inputs = {
-    sops-nix.url = "github:Mic92/sops-nix";
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    devshell.url = "github:numtide/devshell";
+    flake-utils.url = "github:numtide/flake-utils";
+
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,33 +11,37 @@
   outputs = {
     nixpkgs,
     nixos-generators,
-    sops-nix,
+    flake-utils,
     ...
-  }: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    packages.x86_64-linux = {
-      proxmox = nixos-generators.nixosGenerate {
-        system = "${system}";
-        specialArgs = {
-          diskSize = "20480";
+  }:
+    flake-utils.lib.eachDefaultSystem (system: {
+      packages = {
+        proxmox = nixos-generators.nixosGenerate {
+          system = "${system}";
+          specialArgs = {
+            diskSize = "20480";
+          };
+          modules = [
+            ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})
+            ./server
+          ];
+          format = "proxmox";
         };
-        modules = [
-          ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})
-          ./server
-        ];
-        format = "proxmox";
-      };
 
-      proxmox-lxc = nixos-generators.nixosGenerate {
-        system = "${system}";
-        modules = [
-          ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})
-          ./server
-        ];
-        format = "proxmox-lxc";
+        proxmox-lxc = nixos-generators.nixosGenerate {
+          system = "${system}";
+          modules = [
+            ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})
+            ./server
+          ];
+          format = "proxmox-lxc";
+        };
       };
-    };
-  };
+      devShells.default = let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+        pkgs.mkShell {
+          buildInputs = [pkgs.git-crypt];
+        };
+    });
 }
