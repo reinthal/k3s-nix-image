@@ -41,7 +41,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
         pkgs.mkShell {
-          buildInputs = [pkgs.git-crypt];
+          buildInputs = [];
         };
     });
 }
