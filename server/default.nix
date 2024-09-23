@@ -25,7 +25,7 @@
     k3s = {
       enable = true;
       role = "server";
-      token = builtins.readFile ../secrets/token.txt;
+      token = builtins.readFile ../secrets/token.key;
       extraFlags = toString [
         # "--debug" # Optionally add additional args to k3s
       ];
