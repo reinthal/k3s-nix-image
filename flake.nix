@@ -17,8 +17,7 @@
       proxmox = nixos-generators.nixosGenerate {
         system = "${system}";
         specialArgs = {
-          pkgs = nixpkgs;
-          diskSize = 20 * 1024;
+          diskSize = "20480";
         };
         modules = [
           ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})

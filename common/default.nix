@@ -1,10 +1,6 @@
 {
-  modulesPath,
-  options,
-  specialArgs,
-  lib,
-  config,
-  pkgs,
+    pkgs,
+    ...
 }: {
   users.users.kog = {
     hashedPassword = "$y$j9T$dGrTwWw3JWtcSTDXzbVMW/$5jQ35yJGfpw0KX4uzcBmg6qNTtM7fh8keLoatYNql5C";
