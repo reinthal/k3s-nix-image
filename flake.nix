@@ -27,12 +27,8 @@
         format = "proxmox";
       };
 
-      proxmox_lxc = nixos-generators.nixosGenerate {
+      proxmox-lxc = nixos-generators.nixosGenerate {
         system = "${system}";
-        specialArgs = {
-          pkgs = nixpkgs;
-          diskSize = 20 * 1024;
-        };
         modules = [
           ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})
           ./server
