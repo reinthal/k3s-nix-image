@@ -6,12 +6,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixos-generators, ... }: {
+  outputs = {
+    self,
+    nixpkgs,
+    nixos-generators,
+    ...
+  }: {
     packages.x86_64-linux = {
-      proxmox = nixos-generators.nixosGenerate {
+      k3s_server = nixos-generators.nixosGenerate {
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
+          ./server
         ];
         format = "proxmox";
       };
